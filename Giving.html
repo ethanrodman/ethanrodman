@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Give — Ethan Rodman | On the Trail</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="site.css" />
+<style>
+  /* Giving-page-specific layout */
+  .give-hero {
+    background-color: var(--moss); color: var(--canvas);
+    text-align: center; padding: 9rem 1rem 4rem;
+    position: relative; overflow: hidden;
+    background-image:
+      radial-gradient(circle at center, rgba(243,218,178,0.09) 1.6px, transparent 1.7px),
+      radial-gradient(circle at center, rgba(243,218,178,0.05) 1.6px, transparent 1.7px);
+    background-size: 34px 34px, 34px 34px; background-position: 0 0, 17px 17px;
+  }
+  body.dark-mode .give-hero { background-color: #2c4527; }
+  .give-hero .hero-kicker { color: var(--summit); }
+  .give-hero h1 { font-size: clamp(2.4rem, 6vw, 4rem); color: var(--canvas); margin-bottom: 0.3em; }
+
+  .give-grid {
+    display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 3rem;
+    align-items: start; margin-top: -3.5rem; position: relative; z-index: 3;
+  }
+  .give-intro-card {
+    background: var(--card-bg); color: var(--card-text);
+    border: 1px solid var(--hairline); border-radius: 20px;
+    padding: 2.6rem 2.6rem; box-shadow: 0 18px 44px rgba(21,43,17,0.12);
+  }
+  .give-intro-card p { font-size: 1.12rem; }
+  .give-intro-card p:last-child { margin-bottom: 0; }
+
+  .give-amount {
+    display: flex; align-items: baseline; gap: 0.5rem;
+    margin: 1.8rem 0 0.4rem; padding-top: 1.6rem;
+    border-top: 1px dashed var(--hairline);
+  }
+  .give-amount .num { font-family: "Playfair Display", serif; font-weight: 700; font-size: 3.2rem; color: var(--ember); line-height: 1; }
+  .give-amount .per { font-size: 1.05rem; font-weight: 600; color: var(--muted-text); }
+  .give-amount-note { font-size: 0.95rem; color: var(--muted-text); margin: 0; }
+
+  .donate-card {
+    background: var(--card-bg); color: var(--card-text);
+    border: 2px solid var(--moss); border-radius: 20px;
+    padding: 2.4rem 2.2rem; text-align: center;
+    box-shadow: 0 18px 44px rgba(21,43,17,0.12); position: sticky; top: 90px;
+  }
+  .donate-card h2 { color: var(--pine); font-size: 1.7rem; }
+  body.dark-mode .donate-card h2 { color: var(--canvas); }
+  .donate-card .btn-ember { width: 100%; justify-content: center; margin-top: 0.6rem; }
+  .donate-toggle { display: flex; gap: 0.5rem; background: rgba(77,108,72,0.12); padding: 0.35rem; border-radius: 999px; margin: 1.4rem 0 1.6rem; }
+  body.dark-mode .donate-toggle { background: rgba(215,205,98,0.12); }
+  .donate-toggle button {
+    flex: 1; border: none; background: transparent; cursor: pointer;
+    font-family: "Inter", sans-serif; font-weight: 600; font-size: 0.95rem;
+    color: var(--card-text); padding: 0.65em 0.5em; border-radius: 999px;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .donate-toggle button.active { background: var(--moss); color: var(--canvas); box-shadow: 0 4px 12px rgba(21,43,17,0.2); }
+  .donate-note { font-size: 0.82rem; color: var(--muted-text); margin: 1rem 0 0; font-style: italic; }
+
+  .support-types { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; margin-top: 4rem; }
+  .support-type {
+    background: var(--card-bg); border: 1px solid var(--hairline);
+    border-radius: 16px; padding: 1.8rem 1.7rem;
+    box-shadow: 0 8px 22px rgba(21,43,17,0.07);
+  }
+  .support-type .emo { font-size: 1.8rem; display: block; margin-bottom: 0.6rem; }
+  .support-type h3 { color: var(--pine); font-size: 1.35rem; margin-bottom: 0.3em; }
+  body.dark-mode .support-type h3 { color: var(--canvas); }
+  .support-type p { margin: 0; font-size: 0.98rem; }
+
+  @media (max-width: 880px) {
+    .give-grid { grid-template-columns: 1fr; }
+    .donate-card { position: static; }
+    .support-types { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="On the Trail.html" class="brand">
+        <span class="brand-name">Ethan Rodman</span>
+        <span class="brand-acf">acf</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="On the Trail.html#story">My Story</a></li>
+          <li><a href="On the Trail.html#ministry">Ministry</a></li>
+          <li><a href="On the Trail.html#services">Services</a></li>
+          <li><a href="On the Trail.html#newsletter">Newsletter</a></li>
+          <li><a href="Giving.html" aria-current="page">Give</a></li>
+          <li><a href="On the Trail.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav-right">
+        <button class="lamp-btn" id="lampBtn" aria-label="Toggle light and dark mode" aria-pressed="false">
+          <svg class="lamp-svg" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="lamp-glow" cx="12" cy="8" r="9.2" />
+            <path class="lamp-body" d="M12 12.7 C8.4 12.7 6.7 15 6.7 17.7 C6.7 20.1 8.8 21.5 12 21.5 C15.2 21.5 17.3 20.1 17.3 17.7 C17.3 15 15.6 12.7 12 12.7 Z" />
+            <rect class="lamp-neck" x="11.2" y="11.4" width="1.6" height="2" rx="0.3" />
+            <path class="lamp-shade2" d="M9.3 4.9 Q12 4.4 14.7 4.9 L20.6 11 Q12 12.6 3.4 11 Z" />
+          </svg>
+        </button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <line x1="4" y1="7" x2="20" y2="7" /><line x1="4" y1="12" x2="20" y2="12" /><line x1="4" y1="17" x2="20" y2="17" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="verse-bar" aria-hidden="true">
+    <p>&ldquo;Thy word is a lamp unto my feet, and a light unto my path.&rdquo;<span class="ref">&mdash; Psalm 119:105</span></p>
+  </div>
+
+  <div class="lamp-light" aria-hidden="true"></div>
+
+  <main>
+    <!-- ============ GIVE HERO ============ -->
+    <section class="give-hero">
+      <div class="wrap hero-content">
+        <span class="hero-kicker">Partner with the mission</span>
+        <h1>Support</h1>
+      </div>
+    </section>
+
+    <section class="pad" style="padding-top: 0;">
+      <div class="wrap give-grid">
+        <!-- The ask -->
+        <div class="give-intro-card">
+          <p>I am asking for your support this coming year! This ministry is a special place, and the Lord is doing incredible work here. I am looking for both financial support and prayer support. I am looking to raise $2,000 a month. This amount comes from a place that will allow me to step into this ministry and support my financial needs every month.</p>
+          <div class="give-amount">
+            <span class="num">$2,000</span>
+            <span class="per">a month</span>
+          </div>
+          <p class="give-amount-note">Every monthly partner brings this goal closer.</p>
+        </div>
+
+        <!-- Donate card -->
+        <aside class="donate-card">
+          <h2>Give</h2>
+          <p class="donate-lead">Thank you for partnering with me. One-time and recurring options are available on the giving page.</p>
+          <a href="https://app.clovergive.com/app/giving/givingawakening" class="btn-ember big" id="donateBtn" target="_blank" rel="noopener" aria-label="Give now — opens the secure Clover giving page in a new tab">Give now</a>
+          <p class="donate-note">On the giving page, please use the drop-down menu to select my name, Ethan Rodman.</p>
+        </aside>
+      </div>
+
+      <!-- Contact -->
+      <div class="wrap narrow center" style="margin-top: 4.5rem;">
+        <h2 class="section-head">Contact</h2>
+        <ul class="contact-list">
+          <li><span class="c-label">Cell Number</span><a href="tel:+14704942103">470-494-2103</a></li>
+          <li><span class="c-label">Email</span><a href="mailto:ethan.rodman@awakeningmilledgeville.org">ethan.rodman@awakeningmilledgeville.org</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="fname">Ethan Rodman</div>
+    <p class="ftag">Awakening Collegiate Fellowship · Milledgeville, Georgia</p>
+    <p class="copy">© 2026 Ethan Rodman.</p>
+  </footer>
+
+  <script src="site.js"></script>
+</body>
+</html>
